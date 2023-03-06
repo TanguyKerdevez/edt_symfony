@@ -2,6 +2,10 @@
 
 ## Installation
 
+### Prérequis:
+
+PHP: https://www.php.net/manual/fr/install.php
+
 ### liste des commandes: 
 
 composer require symfony/orm-pack
