@@ -48,7 +48,7 @@ class Cours implements \JsonSerializable
             'dateHeureDebut'   => $this->getDateHeureDebut(),
             'dateHeureFin'    => $this->getDateHeureFin(),
             'type' => $this->getType(),
-            'professeur' => $this->getProfesseur(),
+            'professeur' => strval($this->getProfesseur()),
             'matiere' => $this->getMatiere(),
         ];
     }
