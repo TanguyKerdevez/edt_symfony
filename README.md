@@ -29,6 +29,11 @@ Créer les entités: ```php bin/console make:entity```
 Lister les cours: ```localhost:8000/api/cours``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
+Lister les salles: ```localhost:8000/api/salles``` 
+- Réponse: ```JSON``` ```HTTP_OK```
+
+Accéder à l'interface d'administration: ```localhost:8000/admin```
+
 php bin/console doctrine:database
 php bin/console doctrine:database:create
 php bin/console make:entity -n Avis
