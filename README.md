@@ -14,7 +14,7 @@ ORM: ```composer require symfony/orm-pack```
 
 Maker: ```require --dev symfony/maker-bundle```
 
-### Mettre en place la base de donnée:
+### Mise en place la base de donnée:
 
 Dans notre cas nous utilisons MySQL.
 
@@ -24,7 +24,9 @@ Créer la base de donnée: ````php bin/console doctrine:database:create```
 
 Créer les entités: ```php bin/console make:entity```
 
-### Mettre en place la base de donnée:
+## Installation:
+
+Lister les cours: ```localhost:8000/api/cours``` Réponse: ```JSON``` ```HTTP_OK```
 
 php bin/console doctrine:database
 php bin/console doctrine:database:create
