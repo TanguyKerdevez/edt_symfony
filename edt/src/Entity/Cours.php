@@ -44,7 +44,7 @@ class Cours implements \JsonSerializable
     {
         return [
             'id'       => $this->getId(),
-            //'salle'      => $this->getSalle().toArray(),
+            'salle'      => $this->getSalle(),
             'dateHeureDebut'   => $this->getDateHeureDebut(),
             'dateHeureFin'    => $this->getDateHeureFin(),
             'type' => $this->getType(),
