@@ -8,7 +8,9 @@
 
 [Symfony](https://symfony.com/doc/current/setup.html)
 
-### liste des commandes: 
+### Dépendences:
+
+Installer composer: ```bash composer require symfony/orm-pack```
 
 composer require symfony/orm-pack
 
