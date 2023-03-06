@@ -30,7 +30,7 @@ Lister les cours: ```localhost:8000/api/cours```
 - Réponse: ```JSON``` ```HTTP_OK```
 
 Lister les salles: ```localhost:8000/api/salles``` 
-- Réponse: ```JSON``` ```HTTP_OK```
+- Réponse: ```JSON``` [```HTTP_OK```] `#c5f015`
 
 Accéder à l'interface d'administration: ```localhost:8000/admin```
 
