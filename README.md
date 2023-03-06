@@ -15,6 +15,8 @@ Maker: ```bash require --dev symfony/maker-bundle```
 
 ### Mettre en place la base de donnée:
 
+Dans notre cas nous utilisons MySQL.
+
 Dans le fichier .env: ```bash DATABASE_URL="mysql://root:admin@127.0.0.1:3306/edt"```
 
 composer require symfony/orm-pack
