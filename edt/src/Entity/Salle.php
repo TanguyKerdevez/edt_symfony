@@ -32,6 +32,11 @@ class Salle implements \JsonSerializable
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return sprintf('Salle %s ', $this->getNumero());
+    }
+
     public function jsonSerialize(): mixed
     {
         return [

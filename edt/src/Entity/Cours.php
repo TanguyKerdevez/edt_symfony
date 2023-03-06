@@ -16,15 +16,19 @@ class Cours implements \JsonSerializable
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
     private ?Salle $salle = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $date_heure_debut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank]
     private ?\DateTimeInterface $date_heure_fin = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
@@ -38,6 +42,11 @@ class Cours implements \JsonSerializable
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s, %s, %s', $this->getMatiere(), $this->getProfesseur(), $this->getSalle());
     }
 
     public function jsonSerialize(): mixed
