@@ -1,8 +1,8 @@
 # edt_symfony
 
-### Installation
+## Installation
 
-liste des commandes: 
+### liste des commandes: 
 
 composer require symfony/orm-pack
 composer require --dev symfony/maker-bundle
