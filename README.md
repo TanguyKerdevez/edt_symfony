@@ -2,9 +2,11 @@
 
 ## Installation
 
-### Prérequis:
+### Prérequis: 
 
-PHP: https://www.php.net/manual/fr/install.php
+[PHP](https://www.php.net/manual/fr/install.php)
+
+[Symfony](https://symfony.com/doc/current/setup.html)
 
 ### liste des commandes: 
 
@@ -14,19 +16,12 @@ composer require --dev symfony/maker-bundle
 
 php bin/console doctrine:database
 php bin/console doctrine:database:create
-
 php bin/console make:entity -n Avis
-
 php bin/console make:entity -n Professeur
-
 php bin/console make:entity -n Matiere
-
 php bin/console make:entity -n Cours
-
 php bin/console make:entity -n Salle
-
 composer require symfony/form symfony/validator symfony/twig-bundle sensio/framework-extra-bundle
-
 php bin/console make:controller ProfesseurController
 php bin/console make:form ProfesseurController
 composer require easycorp/easyadmin-bundle symfony/security-bundle
