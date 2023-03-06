@@ -26,7 +26,8 @@ Créer les entités: ```php bin/console make:entity```
 
 ## Installation:
 
-Lister les cours: ```localhost:8000/api/cours```   Réponse: ```JSON``` ```HTTP_OK```
+Lister les cours: ```localhost:8000/api/cours``` 
+- Réponse: ```JSON``` ```HTTP_OK```
 
 php bin/console doctrine:database
 php bin/console doctrine:database:create
