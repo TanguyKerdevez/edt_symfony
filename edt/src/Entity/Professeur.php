@@ -36,10 +36,14 @@ class Professeur implements \JsonSerializable
     #[ORM\ManyToMany(targetEntity: Matiere::class, inversedBy: 'professeurs')]
     private Collection $matieres;
 
+    #[ORM\OneToMany(mappedBy: 'professeur', targetEntity: Cours::class)]
+    private Collection $cours;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
         $this->matieres = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function __toString()
@@ -149,6 +153,36 @@ class Professeur implements \JsonSerializable
     public function removeMatiere(Matiere $matiere): self
     {
         $this->matieres->removeElement($matiere);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): self
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): self
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getProfesseur() === $this) {
+                $cour->setProfesseur(null);
+            }
+        }
 
         return $this;
     }
