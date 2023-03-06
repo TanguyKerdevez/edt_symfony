@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,6 +40,14 @@ class Cours implements \JsonSerializable
     #[ORM\ManyToOne(inversedBy: 'cours')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Matiere $matiere = null;
+
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: AvisCours::class, orphanRemoval: true)]
+    private Collection $avisCours;
+
+    public function __construct()
+    {
+        $this->avisCours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -130,6 +140,36 @@ class Cours implements \JsonSerializable
     public function setMatiere(?Matiere $matiere): self
     {
         $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvisCours>
+     */
+    public function getAvisCours(): Collection
+    {
+        return $this->avisCours;
+    }
+
+    public function addAvisCour(AvisCours $avisCour): self
+    {
+        if (!$this->avisCours->contains($avisCour)) {
+            $this->avisCours->add($avisCour);
+            $avisCour->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvisCour(AvisCours $avisCour): self
+    {
+        if ($this->avisCours->removeElement($avisCour)) {
+            // set the owning side to null (unless already changed)
+            if ($avisCour->getCours() === $this) {
+                $avisCour->setCours(null);
+            }
+        }
 
         return $this;
     }
