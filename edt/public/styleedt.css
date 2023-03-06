@@ -1,0 +1,45 @@
+#containerEdt {
+    display:grid; 
+    grid-template-columns: 1fr  5fr;
+    grid-template-rows : 1fr ;
+    height: 100vh;
+}
+
+#colonneTemps {
+    background-color: beige;
+}
+
+#affichageCours{
+    background-color:orange;
+}
+
+#selectJour{
+    display: flex;
+}
+
+
+.colonneTemps{
+    display:block;
+}
+
+.affichageCours{
+    display:block;
+}
+
+
+.interval30min{
+    padding-bottom:15px; 
+    margin-bottom:4px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: cadetblue;
+}
+
+.partieDroiteInterval30min{
+
+    padding-bottom:15px; 
+    margin-bottom:4px; 
+    background-color: bisque;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align:center; 
+
+}

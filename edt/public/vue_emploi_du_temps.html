@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styleedt.css">
+</head>
+<body>
+    <div id="app">
+
+        <div id="selectJour">
+            <button id="prevDay"> prev  </button>
+            <h3> Jour Courant  </h3>
+            <button id="nextDay"> next  </button>
+        </div>
+
+        <div id="containerEdt"> 
+
+            <div id="colonneTemps"> 
+                <div class="interval30min" v-for="heuresJournee in heuresJournees" >
+                    <label> {{ heuresJournee   }}  </label>
+                </div>
+            </div>
+            <div id="affichageCours">  
+                <div class="partieDroiteInterval30min" v-for="heuresJournee in heuresJournees" >
+                    <label> cours : Français , nom Prof : Madame Reblochon   </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    apiUri: 'http://localhost:8000/api/',
+                    heuresJournees: [
+                        "08h00", 
+                        "08h30", 
+                        "09h00", 
+                        "09h30", 
+                        "10h00", 
+                        "10h30", 
+                        "11h00", 
+                        "11h30", 
+                        "12h00", 
+                        "12h30", 
+                        "13h00", 
+                        "13h30", 
+                        "14h00", 
+                        "14h30", 
+                        "15h00", 
+                        "15h30", 
+                        "16h00", 
+                        "16h30", 
+                        "17h00", 
+                        "17h30", 
+                        "18h00", 
+                        "18h30"
+                    ] , 
+                    professeurs: [], 
+                    cours: []
+                }
+            }, 
+
+            methods: {
+                getCours(){
+                    axios.get('http://localhost:8000/api/cours')
+                    .then(response => {
+                        this.professeurs = response.data;
+                        console.log(this.professeurs); 
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                }, 
+            }, 
+
+            mounted() {
+                this.getCours(); 
+            }
+
+        }).mount("#app"); 
+
+    </script>
+
+
+</body>
+</html>
