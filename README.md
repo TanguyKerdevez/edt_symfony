@@ -20,13 +20,13 @@ Dans notre cas nous utilisons MySQL.
 
 Dans le fichier .env: ```DATABASE_URL="mysql://root:admin@127.0.0.1:3306/edt"```
 
-Créer la base de donnée: ````php bin/console doctrine:database:create```
+Créer la base de donnée: ```php bin/console doctrine:database:create```
 
 Créer les entités: ```php bin/console make:entity```
 
 ## Installation:
 
-Lister les cours: ```localhost:8000/api/cours``` Réponse: ```JSON``` ```HTTP_OK```
+Lister les cours: ```localhost:8000/api/cours```   Réponse: ```JSON``` ```HTTP_OK```
 
 php bin/console doctrine:database
 php bin/console doctrine:database:create
