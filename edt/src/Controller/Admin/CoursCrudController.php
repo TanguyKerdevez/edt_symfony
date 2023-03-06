@@ -21,18 +21,9 @@ class CoursCrudController extends AbstractCrudController
             'type',
             DateTimeField::new('dateHeureDebut')->setFormat('Y-MM-dd HH:mm')->renderAsNativeWidget(),
             DateTimeField::new('dateHeureFin')->setFormat('Y-MM-dd HH:mm')->renderAsNativeWidget(),
-            AssociationField::new('salle')
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ]),
-            AssociationField::new('professeur')
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ]),
-            AssociationField::new('matiere')
-                ->setFormTypeOptions([
-                    'by_reference' => false,
-                ]),
+            AssociationField::new('salle'),
+            AssociationField::new('professeur'),
+            AssociationField::new('matiere'),
         ];
     }
 }
