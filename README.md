@@ -5,7 +5,9 @@
 ### liste des commandes: 
 
 composer require symfony/orm-pack
+
 composer require --dev symfony/maker-bundle
+
 php bin/console doctrine:database
 php bin/console doctrine:database:create
 php bin/console make:entity -n Avis
