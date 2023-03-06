@@ -62,6 +62,16 @@ class Professeur implements \JsonSerializable
         ];
     }
 
+    public function toShort(): mixed
+    {
+        return [
+            'id'       => $this->getId(),
+            'nom'      => $this->getNom(),
+            'prenom'   => $this->getPrenom(),
+            'email'    => $this->getEmail(),
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
