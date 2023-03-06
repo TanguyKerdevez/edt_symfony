@@ -10,7 +10,12 @@
 
 ### Dépendences:
 
-Installer composer: ```bash composer require symfony/orm-pack```
+ORM: ```bash composer require symfony/orm-pack```
+Maker: ```bash require --dev symfony/maker-bundle```
+
+### Mettre en place la base de donnée:
+
+Dans le fichier .env: ```bash DATABASE_URL="mysql://root:admin@127.0.0.1:3306/edt"```
 
 composer require symfony/orm-pack
 
