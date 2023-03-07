@@ -26,8 +26,6 @@ class CoursController extends AbstractController
     #[Route('/{day}', name: 'list_for_day', methods: ['GET'])]
     public function listForDay(CoursRepository $repository,EntityManagerInterface $entityManager, string $day): JsonResponse
     {
-
-        
         $startDate = \DateTime::createFromFormat('Y-m-d', $day)->setTime(
             0,
             0,
@@ -42,9 +40,6 @@ class CoursController extends AbstractController
         );
 
         $endDate->modify('+1 day');
-
-
-
         $query = $entityManager->createQuery(
             'SELECT c
             FROM App\Entity\Cours c
@@ -54,20 +49,6 @@ class CoursController extends AbstractController
 
 
         $cours = $query->getResult();
-
-       /* echo $startDate->format('Y-m-d H:i:s')."\n";
-        echo $endDate->format('Y-m-d H:i:s')."\n";
-        
-        
-
-        $expressionBuilder = Criteria::expr();
-        $criteria = Criteria::create();
-        $criteria
-            ->andWhere(Criteria::expr()->eq('type', 'wesh'))
-            //->where(Criteria::expr()->gte('date_heure_debut', $startDate))
-            //->where(Criteria::expr()->lte('date_heure_debut', $endDate))
-            ;
-        $cours = $repository->matching($criteria);*/
         
         return $this->json($cours, Response::HTTP_OK);
     }

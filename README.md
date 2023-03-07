@@ -29,6 +29,9 @@ Créer les entités: ```php bin/console make:entity```
 Lister les cours: ```localhost:8000/api/cours``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
+Lister les cours pour un jour: ```localhost:8000/api/cours/yyyy-mm-dd``` 
+- Réponse: ```JSON``` ```HTTP_OK```
+
 Lister les salles: ```localhost:8000/api/salles``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
