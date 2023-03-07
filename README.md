@@ -1,5 +1,7 @@
 # edt_symfony
 
+[Voir le README](https://github.com/TanguyKerdevez/edt_symfony)
+
 ## Installation
 
 ### Prérequis: 

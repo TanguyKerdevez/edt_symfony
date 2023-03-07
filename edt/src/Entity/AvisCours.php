@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AvisCoursRepository::class)]
-class AvisCours
+class AvisCours implements \JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,6 +30,16 @@ class AvisCours
     #[ORM\ManyToOne(inversedBy: 'avisCours')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cours $cours = null;
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id'            => $this->getId(),
+            'note'          => $this->getNote(),
+            'commentaire'   => $this->getCommentaire(),
+            'emailEtudiant' => $this->getEmailEtudiant(),
+        ];
+    }
 
     public function getId(): ?int
     {
