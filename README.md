@@ -28,13 +28,19 @@ Créer les entités: ```php bin/console make:entity```
 
 ## Points d'entrées:
 
-Lister les cours: ```localhost:8000/api/cours``` 
+Lister les cours: ```GET``` ```localhost:8000/api/cours``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
-Lister les cours pour un jour: ```localhost:8000/api/cours/yyyy-mm-dd``` 
+Lister les cours pour un jour: ```GET``` ```localhost:8000/api/cours/yyyy-mm-dd``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
-Lister les salles: ```localhost:8000/api/salles``` 
+Lister les avis pour un cours: ```GET``` ```localhost:8000/api/cours/{id}/avis``` 
+- Réponse: ```JSON``` ```HTTP_OK```
+
+Créer un avis pour un cours: ```POST``` ```localhost:8000/api/cours/{id}/avis``` 
+- Réponse: ```JSON``` ```HTTP_OK```
+
+Lister les salles: ```GET``` ```localhost:8000/api/salles``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
 Accéder à l'interface d'administration: ```localhost:8000/admin```
