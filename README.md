@@ -29,7 +29,7 @@ Créer les entités: ```php bin/console make:entity```
 ## Points d'entrées:
 
 Lister les cours: ```GET``` ```localhost:8000/api/cours``` 
-- Réponse: ```JSON``` + ```HTTP_OK```
+- Réponse: ```JSON``` ``` + HTTP_OK```
 
 Lister les cours pour un jour: ```GET``` ```localhost:8000/api/cours/yyyy-mm-dd``` 
 - Réponse: ```JSON``` + ```HTTP_OK```
