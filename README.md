@@ -34,8 +34,6 @@ Lister les salles: ```localhost:8000/api/salles```
 
 Accéder à l'interface d'administration: ```localhost:8000/admin```
 
-Accéder à l'interface d'administration: ```localhost:8000/admin```
-
 php bin/console doctrine:database
 php bin/console doctrine:database:create
 php bin/console make:entity -n Avis
