@@ -41,6 +41,15 @@ class AvisCours implements \JsonSerializable
         ];
     }
 
+    public function fromArray(array $data): self
+    {
+        $this->note = $data['note'] ?? $this->note;
+        $this->commentaire = $data['commentaire'] ?? $this->commentaire;
+        $this->emailEtudiant = $data['emailEtudiant'] ?? $this->emailEtudiant;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
