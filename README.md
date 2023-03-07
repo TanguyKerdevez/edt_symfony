@@ -38,7 +38,7 @@ Lister les avis pour un cours: ```GET``` ```localhost:8000/api/cours/{id}/avis``
 - Réponse: ```JSON``` ```HTTP_OK```
 
 Créer un avis pour un cours: ```POST``` ```localhost:8000/api/cours/{id}/avis``` 
-- Réponse: ```JSON``` ```HTTP_OK```
+- Réponse: ```JSON``` ```HTTP_CREATED```
 
 Lister les salles: ```GET``` ```localhost:8000/api/salles``` 
 - Réponse: ```JSON``` ```HTTP_OK```
