@@ -31,6 +31,7 @@ class AvisCoursController extends AbstractController
                 'message' => "Ce cours n'existe pas",
             ], Response::HTTP_NOT_FOUND);
         }
+        
 
         return $this->json($cours->getAvisCours()->toArray(), Response::HTTP_OK);
     }
