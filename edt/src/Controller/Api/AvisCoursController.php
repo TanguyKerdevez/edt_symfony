@@ -23,7 +23,7 @@ class AvisCoursController extends AbstractController
         return $this->json($avis, Response::HTTP_OK);
     }
 
-    #[Route('/cours/{id}', name: 'list_avis', methods: ['GET'])]
+    #[Route('/{id}', name: 'list_avis', methods: ['GET'])]
     public function listAvis(?Cours $cours): JsonResponse
     {
         if (is_null($cours)) {
@@ -35,7 +35,7 @@ class AvisCoursController extends AbstractController
         return $this->json($cours->getAvisCours()->toArray(), Response::HTTP_OK);
     }
 
-    #[Route('/cours/{id}', name: 'create_avis', methods: ['POST'])]
+    #[Route('/{id}', name: 'create_avis', methods: ['POST'])]
     public function createAvis(Request $request, ?Cours $cours, AvisCoursRepository $repository, ValidatorInterface $validator): JsonResponse
     {
         if (is_null($cours)) {
@@ -71,7 +71,7 @@ class AvisCoursController extends AbstractController
         return $this->json($avis, Response::HTTP_CREATED);
     }
 
-    #[Route('/cours/{id}', name: 'delete', methods: ['DELETE'])]
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(AvisCoursRepository $repository, ?AvisCours $avis): JsonResponse
     {
         if (is_null($avis)) {
@@ -85,7 +85,7 @@ class AvisCoursController extends AbstractController
         return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/cours/{id}', name: 'edit', methods: ['PATCH'])]
+    #[Route('/{id}', name: 'edit', methods: ['PATCH'])]
     public function edit(Request $request, ?AvisCours $avis, AvisCoursRepository $repository, ValidatorInterface $validator): JsonResponse
     {
         if (is_null($avis)) {
