@@ -23,7 +23,7 @@ class CoursController extends AbstractController
         return $this->json($cours, Response::HTTP_OK);
     }
 
-    #[Route('/{day}', name: 'list_for_day', methods: ['GET'])]
+    #[Route('/day/{day}', name: 'list_for_day', methods: ['GET'])]
     public function listForDay(CoursRepository $repository,EntityManagerInterface $entityManager, string $day): JsonResponse
     {
         $exp = "(\d{4}\-\d{2}-\d{2})";

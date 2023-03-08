@@ -13,17 +13,17 @@ use App\Repository\CoursRepository;
 use App\Entity\Cours;
 use App\Entity\AvisCours;
 
-#[Route('/api/cours', name: 'api_cours_')]
+#[Route('/api/avis/cours', name: 'api_avis_cours')]
 class AvisCoursController extends AbstractController
 {
-    #[Route('/avis', name: 'list')]
+    #[Route('', name: 'list', methods: ['GET'])]
     public function list(AvisCoursRepository $repository): JsonResponse
     {
         $avis = $repository->findAll();
         return $this->json($avis, Response::HTTP_OK);
     }
 
-    #[Route('/{id}/avis', name: 'list_avis', methods: ['GET'])]
+    #[Route('/cours/{id}', name: 'list_avis', methods: ['GET'])]
     public function listAvis(?Cours $cours): JsonResponse
     {
         if (is_null($cours)) {
@@ -35,7 +35,7 @@ class AvisCoursController extends AbstractController
         return $this->json($cours->getAvisCours()->toArray(), Response::HTTP_OK);
     }
 
-    #[Route('/{id}/avis', name: 'create_avis', methods: ['POST'])]
+    #[Route('/cours/{id}', name: 'create_avis', methods: ['POST'])]
     public function createAvis(Request $request, ?Cours $cours, AvisCoursRepository $repository, ValidatorInterface $validator): JsonResponse
     {
         if (is_null($cours)) {
@@ -71,7 +71,7 @@ class AvisCoursController extends AbstractController
         return $this->json($avis, Response::HTTP_CREATED);
     }
 
-    #[Route('/{id}/avis', name: 'delete', methods: ['DELETE'])]
+    #[Route('/cours/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(AvisCoursRepository $repository, ?AvisCours $avis): JsonResponse
     {
         if (is_null($avis)) {
@@ -85,7 +85,7 @@ class AvisCoursController extends AbstractController
         return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    #[Route('/{id}', name: 'edit', methods: ['PATCH'])]
+    #[Route('/cours/{id}', name: 'edit', methods: ['PATCH'])]
     public function edit(Request $request, ?AvisCours $avis, AvisCoursRepository $repository, ValidatorInterface $validator): JsonResponse
     {
         if (is_null($avis)) {

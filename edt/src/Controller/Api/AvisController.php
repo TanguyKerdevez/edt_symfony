@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Avis;
 use App\Repository\AvisRepository;
 
-#[Route('/api/avis', name: 'api_avis_')]
+#[Route('/api/avis/professeur', name: 'api_avis_')]
 class AvisController extends AbstractController
 {
     #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
