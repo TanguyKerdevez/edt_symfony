@@ -30,6 +30,7 @@ Maker: ```require --dev symfony/maker-bundle```
 - Réponse: ```JSON``` ```HTTP_OK```
 
 
+
 **Lister les cours pour un jour**: ```GET``` ```localhost:8000/api/cours/{yyyy-mm-dd}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 
