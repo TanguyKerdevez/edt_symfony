@@ -48,5 +48,3 @@ Maker: ```require --dev symfony/maker-bundle```
 ## Fonctionnalités ajoutées:
 
 **Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
-
-**Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
