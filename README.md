@@ -20,7 +20,7 @@ Maker: ```require --dev symfony/maker-bundle```
 
 ## Points d'entrées:
 
-Lister les cours: ```GET``` <```http://localhost:8000/api/cours```>
+Lister les cours: ```GET``` [```http://localhost:8000/api/cours```](http://localhost:8000/api/cours)
 - Réponse: ```JSON``` ```HTTP_OK```
 
 Lister les cours pour un jour: ```GET``` ```localhost:8000/api/cours/{yyyy-mm-dd}``` 
