@@ -34,6 +34,10 @@ Maker: ```require --dev symfony/maker-bundle```
 ##
 **Accéder à l'interface d'administration**: ```http://localhost:8000/admin```
 ##
+## Fonctionnalités ajoutées:
+
+**Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
+##
 ### Routes ajoutées
 
 **Lister les cours pour un jour**: ```GET``` ```http://localhost:8000/api/cours/{yyyy-mm-dd}``` 
@@ -45,6 +49,3 @@ Maker: ```require --dev symfony/maker-bundle```
 **Créer un avis pour un cours**: ```POST``` ```http://localhost:8000/api/cours/{id}/avis``` 
 - Réponse: ```JSON``` ```HTTP_CREATED```
 ##
-## Fonctionnalités ajoutées:
-
-**Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
