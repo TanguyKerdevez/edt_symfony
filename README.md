@@ -49,3 +49,9 @@ Maker: ```require --dev symfony/maker-bundle```
 **Créer un avis pour un cours**: ```POST``` ```http://localhost:8000/api/cours/{id}/avis``` 
 - Réponse: ```JSON``` ```HTTP_CREATED```
 ##
+**Modifier un avis pour un cours**: ```PATCH``` ```http://localhost:8000/api/cours/{id}/avis``` 
+- Réponse: ```JSON``` ```HTTP_OK```
+##
+**Supprimer un avis pour un cours**: ```DELETE``` ```http://localhost:8000/api/cours/{id}/avis``` 
+- Réponse: ```JSON``` ```HTTP_NO_CONTENT```
+##
