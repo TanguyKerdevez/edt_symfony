@@ -26,6 +26,10 @@ class CoursController extends AbstractController
     #[Route('/{day}', name: 'list_for_day', methods: ['GET'])]
     public function listForDay(CoursRepository $repository,EntityManagerInterface $entityManager, string $day): JsonResponse
     {
+        $exp = "(\d{4}\-\d{2}-\d{2})";
+        if (preg_match($exp, $day) == 0)
+            return $this->json(['message' => 'La date est au mauvais format, elle doit respecter le format: yyyy-mm-dd'], Response::HTTP_BAD_REQUEST);
+
         $startDate = \DateTime::createFromFormat('Y-m-d', $day)->setTime(0,0,0,0);
         $endDate = \DateTime::createFromFormat('Y-m-d', $day)->setTime(0,0,0,0);
 
