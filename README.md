@@ -28,19 +28,17 @@ Maker: ```require --dev symfony/maker-bundle```
 
 **Lister les cours**: ```GET``` ```http://localhost:8000/api/cours```
 - Réponse: ```JSON``` ```HTTP_OK```
-
+  
 **Lister les cours pour un jour**: ```GET``` ```localhost:8000/api/cours/{yyyy-mm-dd}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
-
+  
 **Lister les salles**: ```GET``` ```localhost:8000/api/salles``` 
 - Réponse: ```JSON``` ```HTTP_OK```
-
+  
 **Lister les avis pour un cours**: ```GET``` ```localhost:8000/api/cours/{id}/avis``` 
 - Réponse: ```JSON``` ```HTTP_OK```
-
+  
 **Créer un avis pour un cours**: ```POST``` ```localhost:8000/api/cours/{id}/avis``` 
 - Réponse: ```JSON``` ```HTTP_CREATED```
-
-
-
-Accéder à l'interface d'administration: ```localhost:8000/admin```
+  
+**Accéder à l'interface d'administration**: ```localhost:8000/admin```
