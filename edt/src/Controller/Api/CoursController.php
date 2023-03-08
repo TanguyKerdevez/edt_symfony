@@ -40,8 +40,6 @@ class CoursController extends AbstractController
             WHERE c.date_heure_debut > :startDate AND c.date_heure_debut < :endDate'
         )->setParameter('startDate', $startDate)->setParameter('endDate', $endDate);
 
-
-
         $cours = $query->getResult();
         
         return $this->json($cours, Response::HTTP_OK);

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styletable.css">
+</head>
+<body>
+    <div id="app">
+
+        <label>  {{  this.isMounted}}  </label>  <br> 
+        <label>  {{  this.seenEdt }}  </label>  
+
+        <div id="selectJour">
+            <button @click="prev"   id="prevDay"> prev  </button>
+            <h3>  {{  currentDate   }}  </h3>
+            <button  @click="next"  id="nextDay"> next  </button>
+        </div>
+
+
+        <table v-if="this.seenEdt" id="containerEdt"> 
+
+            <label>  {{  this.seenEdt }}  </label>  
+            <tr  v-for="i in  (heuresJourneesMinutes.length)" v-if="isMounted" > 
+                <td>
+                    <label> {{   heuresJournees[i-1] }}  </label>
+                </td>
+                <td>
+                        <div  v-if="this.cours != null &&  this.cours.length > 0  &&  i <= (heuresJourneesMinutes.length-1) && this.coursAvailable[i-1].available">   
+                            <label> Heure debut : {{  conversionDateHeureEtMinuteString(  this.cours[this.coursAvailable[i-1].cour].dateHeureDebut.date  )    }} Heure fin : {{  conversionDateHeureEtMinuteString(this.cours[this.coursAvailable[i-1].cour].dateHeureFin.date)  }}  Matiere : {{  this.cours[this.coursAvailable[i-1].cour].matiere.titre    }}   Type :   {{  this.cours[this.coursAvailable[i-1].cour].type  }}    Professeur :  {{  this.cours[this.coursAvailable[i-1].cour].professeur  }}    </label>  
+                            <button v-on:click="addAvisCoursForm(this.coursAvailable[i-1].cour)"  >  addAvisCours  </button>
+                        </div>
+                </td>
+            </tr>
+        </table>
+
+        <div v-if="seenForm"  id="formAvisCours">
+            <form action="">
+                <label >  Note  </label>
+                <select v-model="noteAttribueForm" type="text" name="" id="noteForm">
+                    <option value="" v-for="i in 6"> {{ i-1 }}  </option>
+                </select>
+                <label >  Commentaire </label>
+                <textarea v-model="commentaireAttribueForm" name="commentaireForm" id="" cols="30" rows="10">  </textarea>
+                <label> Email Etudiant </label>
+                <input v-model="emailEtudiantAttribueForm" type="text" name="" id="emailEtudiantForm">
+
+                <button  v-on:click="envoyerForm" >  Envoyer  </button>
+
+            </form>
+        </div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    apiUri: 'http://localhost:8000/api/',
+                    
+                    heuresJourneesMinutes: [
+                        /* 480 , 
+                        495 , 
+                        510 ,  // 8h30 
+                        525 , 
+                        540 , 
+                        555 , // 9 h 15  
+                        570 ,
+                        585,
+                        600 , // 10 h 00 
+                        615 , 
+                        630 , 
+                        645 , 
+                        700 , // 11 h 00  
+                        715 , 
+                        730 , 
+                        745 , 
+                        800 , */ 
+                    ], 
+
+                    heuresJournees: [
+                        "08h00", 
+                        "08h15", 
+                        "08h30", 
+                        "08h45", 
+                        "09h00", 
+                        "09h15", 
+                        "09h30", 
+                        "09h45", 
+                        "10h00", 
+                        "10h15", 
+                        "10h30", 
+                        "10h45", 
+                        "11h00", 
+                        "11h15", 
+                        "11h30", 
+                        "11h45", 
+                        "12h00", 
+                        "12h15", 
+                        "12h30", 
+                        "12h45", 
+                        "13h00", 
+                        "13h15", 
+                        "13h30", 
+                        "13h45", 
+                        "14h00", 
+                        "14h15", 
+                        "14h30", 
+                        "14h45", 
+                        "15h00", 
+                        "15h15", 
+                        "15h30", 
+                        "15h45", 
+                        "16h00", 
+                        "16h15", 
+                        "16h30", 
+                        "16h45", 
+                        "17h00", 
+                        "17h15", 
+                        "17h30", 
+                        "17h45", 
+                        "18h00", 
+                        "18h15", 
+                        "18h30", 
+                        "18h45", 
+                        "19h00"
+                    ],
+
+                    coursAvailable: [], 
+                    cours: "", 
+                    isMounted:false ,
+                    currentDate: new Date(),
+                    isPrintingCoursVar : false ,
+                    seenEdt:true, 
+                    seenForm:false, 
+
+                    noteAttribueForm:0 , 
+                    commentaireAttribueForm: "" , 
+                    emailEtudiantAttribueForm:"" , 
+                    coursChoisiAttribueForm : ""
+                }
+            }, 
+
+            methods: {
+
+                envoyerForm(){
+                    console.log(" etat de la date apres =========>  "); 
+                    console.log(currentDate); 
+                    var sauveGardeCurrentDate =  currentDate; 
+                    this.seenEdt = false; 
+                    this.seenForm = true;                   
+                    this.currentDate =  sauveGardeCurrentDate ; 
+                },
+
+                addAvisCoursForm(idCoursAvailable){
+
+                    console.log(" ADD AVIS COURS FORM " +  idCoursAvailable );
+                    this.seenEdt = false; 
+                    this.seenForm = true;
+
+                },
+
+
+                hideEdtTable(){
+                    this.seenEdt = false; 
+                },
+
+                showEdtTable(){
+                    this.seenEdt = true; 
+                },
+
+                async isPrintingCours(booleen){
+                    this.isPrintingCoursVar  = booleen; 
+                },
+
+                async next(){
+                    this.currentDate.setDate(  this.currentDate.getDate() + 1  ); 
+                    console.log("  NEXT !!!!!!!!!!!!!!!!!   ");
+                    this.getCours(); 
+                }, 
+
+                async prev(){
+                    this.currentDate.setDate(  this.currentDate.getDate() - 1  ); 
+                    console.log("  PREV !!!!!!!!!!!!!!!!!   ");
+                    this.getCours(); 
+                }, 
+
+                async getCoursOfTheCurrentDay(){
+
+                    // var this.currentDate = new Date();
+                    var day = String(this.currentDate.getDate()).padStart(2, '0');
+                    var month = String(this.currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var year = this.currentDate.getFullYear();
+                    var today =  year  + '-' + month + '-' + day ;
+
+                    console.log('http://localhost:8000/api/cours/' + year + "-" + month + "-" + day ); 
+                    var response = await axios.get('http://localhost:8000/api/cours/' +  today ); 
+                    console.log(response); 
+
+                },
+
+                async getCours(){
+
+                    console.log( this.heuresJourneesMinutes); 
+
+                    var day = String(this.currentDate.getDate()).padStart(2, '0');
+                    var month = String(this.currentDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var year = this.currentDate.getFullYear();
+                    var today =  year  + '-' + month + '-' + day ;
+
+                    var chemin = "http://localhost:8000/api/cours/day/";
+                    // alert(  chemin  ); 
+                    response = await  axios.get( chemin  + today ); 
+                    console.log(" Valeur de la reponse ==============>  "); 
+                    console.log( response );
+                    this.cours  = response.data;
+                    console.log("  le cours ==========>   "); 
+                    console.log(this.cours); 
+                    console.log(this.cours[0].dateHeureDebut); 
+                    var stop = false; 
+                    // heuresJourneesMinutes 
+
+                    this.coursAvailable = []; 
+
+                    for(i = 0 ; i <  this.heuresJourneesMinutes.length-1   ; i++  ){
+                        stop = false; 
+                        for(y = 0 ; y < this.cours.length ; y++ ){
+
+                            console.log(this.coursAvailable); 
+                            if( i == 2 ){
+                                console.log(this.coursAvailable); 
+                            }
+
+                            var debug1 =   this.conversionDateHeureEtMinute(this.cours[y].dateHeureDebut.date ) ; 
+                            var debug2 =   this.conversionDateHeureEtMinute(this.cours[y].dateHeureFin.date ) ; 
+                            var debug3 =   this.heuresJourneesMinutes[i] ; 
+                            var debug4 = this.heuresJourneesMinutes[i+1]; 
+
+                            if(  this.isInsideInterval(  this.conversionDateHeureEtMinute(this.cours[y].dateHeureDebut.date )  ,
+                                                    this.conversionDateHeureEtMinute(this.cours[y].dateHeureFin.date)  ,
+                                                    this.heuresJourneesMinutes[i] , 
+                                                    this.heuresJourneesMinutes[i+1] )) {
+
+                                this.coursAvailable.push({ available:true , cour : y });   /*  this.coursAvailable =   */ 
+                                console.log(this.coursAvailable); 
+                                stop = true ; 
+                                break; 
+                            }
+                        }
+                        if(!stop){
+                            this.coursAvailable.push({ available:false , cour : -2 }); 
+                            console.log(this.coursAvailable); 
+                        }
+                    }
+
+                    console.log(  this.cours  ); 
+                    console.log(this.coursAvailable); 
+                    console.log(this.coursAvailable[0].available); 
+
+                    console.log(" --------------- FIN DE GET COURS ---------------- "); 
+
+                    /* axios.get('http://localhost:8000/api/cours')
+                    .then(response => {
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })*/ 
+                }, 
+
+                isInsideInterval(borneInf , borneSup  , intervalA , intervalB  ){
+
+                    console.log(  "   intervalA   =>  " +   intervalA     +   " intervalB   => " +  intervalB  ); 
+                    console.log(  " borneInf =>  " + borneInf  +   " borneSup => " +  borneSup      ); 
+                    console.log(intervalB >= borneInf  && intervalA <= borneSup)
+                    return intervalB >= borneInf  && intervalA <= borneSup ;  
+                } , 
+
+
+                conversionDateHeureEtMinuteString(date){
+                    console.log(" conversionDateHeureEtMinute =========>  ");
+                    console.log(date); 
+                    var regexp = /[0-9]{2}:[0-9]{2}:[0-9]{2}/g; 
+                    var tableauString = null; 
+
+                    var value =  regexp.exec(date)[0]; 
+                    if(value){
+                        tableauString =  value.split(":"); 
+                        console.log(" LA REGEXP CORRESPOND ")
+                        console.log(value);
+                        console.log( ) 
+                        // minutes =  parseInt(tableauString[1] , 10) ; 
+                        // heures  = parseInt(tableauString[0] , 10) * 60 ; 
+                        return tableauString[0]  +  "h" +   tableauString[1] ; 
+                    }
+                    return "00h00"; 
+                },
+                
+                conversionDateHeureEtMinute(date){
+                    console.log(" conversionDateHeureEtMinute =========>  ");
+                    console.log(date); 
+                    var regexp = /[0-9]{2}:[0-9]{2}:[0-9]{2}/g; 
+                    var tableauString = null; 
+                    var minutes = 0 ; 
+                    var heures = 0 ; 
+
+                    var value =  regexp.exec(date)[0]; 
+                    if(value){
+                        tableauString =  value.split(":"); 
+                        console.log(" LA REGEXP CORRESPOND ")
+                        console.log(value);
+                        console.log( ) 
+                        minutes =  parseInt(tableauString[1] , 10) ; 
+                        heures  = parseInt(tableauString[0] , 10) * 60 ; 
+                        return minutes + heures   ; 
+                    }
+                    return  minutes + heures ; 
+                }, 
+
+                // conversionHeure24hourtoMinute
+                isValueMinuteBetweenAandB(valeurMinute , intervalA , intervalB){
+                    console.log(" valeurMinute  ==============>   " +   valeurMinute ); 
+                    console.log(  valeurMinute.date ); 
+                    console.log(" valeurMinute intervalA   ==============>   " + intervalA  ); 
+                    console.log( intervalA.date ); 
+                    console.log(" valeurMinute intervalB   ==============>   " + intervalB );  
+                    console.log( typeof intervalB.date );  
+                    return true; 
+                    // return  intervalA >= valeurMinute &&  valeurMinute <=  intervalB; 
+                }, 
+
+                async initTimeStart(){
+                    return new Promise( (resolve , reject ) => {
+                        start = 480; 
+                        this.heuresJourneesMinutes = []; 
+                        while(start <= 1140  ){
+                            this.heuresJourneesMinutes.push(start); 
+                            start  += 15; 
+                        }
+                        resolve(1);
+                    });
+                }, 
+
+
+
+                placerCour(debutIntervalMinute , finIntervalMinute  ){
+                    if(  debutIntervalMinute >= finIntervalMinute  ){
+                        return ;  
+                    }
+                }
+            }, 
+
+            async created() {
+                await this.initTimeStart();
+                await this.getCours(); 
+                // await this.getCoursOfTheCurrentDay(); 
+                console.log( this.heuresJourneesMinutes ); 
+
+                console.log(" ---------- BEFORE GET COURS  ----------  "); 
+                console.log(" ---------- AFTER GET COURS  ----------  "); 
+                // this.isValueMinuteBetweenAandB
+                //  this.initTimeStart(); 
+                console.log(" ----------------------  FIN DE MOUNTED --------------- "); 
+                console.log(this.heuresJourneesMinutes); 
+                console.log(" cours Available DANS MOUNTED  ===============>  "); 
+                console.log(this.coursAvailable); 
+                console.log(this.heuresJournees); 
+                this.isMounted = true; 
+            },
+
+            mounted(){
+
+                console.log(" --------------   ON MOUNT  -----------------  "); 
+            }
+
+        }).mount("#app"); 
+    </script>
+</body>
+</html>
