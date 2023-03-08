@@ -43,15 +43,15 @@ Maker: ```require --dev symfony/maker-bundle```
 **Lister les cours pour un jour**: ```GET``` ```http://localhost:8000/api/cours/{yyyy-mm-dd}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
-**Lister les avis pour un cours**: ```GET``` ```http://localhost:8000/api/cours/{id}/avis``` 
+**Lister les avis pour un cours**: ```GET``` ```http://localhost:8000/api/avis/cours/{id}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
-**Créer un avis pour un cours**: ```POST``` ```http://localhost:8000/api/cours/{id}/avis``` 
+**Créer un avis pour un cours**: ```POST``` ```http://localhost:8000/api/avis/cours/{id}``` 
 - Réponse: ```JSON``` ```HTTP_CREATED```
 ##
-**Modifier un avis pour un cours**: ```PATCH``` ```http://localhost:8000/api/cours/{id}/avis``` 
+**Modifier un avis pour un cours**: ```PATCH``` ```http://localhost:8000/api/avis/cours/{id}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
-**Supprimer un avis pour un cours**: ```DELETE``` ```http://localhost:8000/api/cours/{id}/avis``` 
+**Supprimer un avis pour un cours**: ```DELETE``` ```http://localhost:8000/api/avis/cours/{id}``` 
 - Réponse: ```JSON``` ```HTTP_NO_CONTENT```
 ##
