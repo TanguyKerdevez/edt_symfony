@@ -29,10 +29,14 @@ Maker: ```require --dev symfony/maker-bundle```
 **Lister les cours**: ```GET``` ```http://localhost:8000/api/cours```
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
-**Lister les cours pour un jour**: ```GET``` ```http://localhost:8000/api/cours/{yyyy-mm-dd}``` 
+**Lister les salles**: ```GET``` ```http://localhost:8000/api/salles``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
-**Lister les salles**: ```GET``` ```http://localhost:8000/api/salles``` 
+**Accéder à l'interface d'administration**: ```http://localhost:8000/admin```
+
+### Routes ajoutées
+
+**Lister les cours pour un jour**: ```GET``` ```http://localhost:8000/api/cours/{yyyy-mm-dd}``` 
 - Réponse: ```JSON``` ```HTTP_OK```
 ##
 **Lister les avis pour un cours**: ```GET``` ```http://localhost:8000/api/cours/{id}/avis``` 
@@ -41,5 +45,9 @@ Maker: ```require --dev symfony/maker-bundle```
 **Créer un avis pour un cours**: ```POST``` ```http://localhost:8000/api/cours/{id}/avis``` 
 - Réponse: ```JSON``` ```HTTP_CREATED```
 ##
-**Accéder à l'interface d'administration**: ```http://localhost:8000/admin```
-##
+
+## Fonctionnalités ajoutées:
+
+**Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
+
+**Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
