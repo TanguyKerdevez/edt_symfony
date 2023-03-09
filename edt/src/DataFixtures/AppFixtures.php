@@ -11,6 +11,7 @@ use App\Entity\Salle;
 use App\Entity\Matiere;
 use App\Entity\Cours;
 
+
 class AppFixtures extends Fixture
 {
 

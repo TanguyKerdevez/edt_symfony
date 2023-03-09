@@ -14,7 +14,7 @@
         <div id="selectJour"   v-show="this.seenEdt" >
             <button @click="prev"   id="prevDay"> prev  </button>
             <h3>  {{  currentDate.toLocaleString().substring(0 , 10)   }}  </h3>
-            <button  @click="next"  id="nextDay"> next  </button>
+            <button  @click="next"  id="nextDay"> Jour Suivant  </button>
         </div>
 
         <table v-show="this.seenEdt" id="containerEdt"> 
@@ -44,7 +44,7 @@
             <!-- Donner son avis  -->
             <div v-show="this.seenAvisCours" id="formAvisCours">
 
-                    <h1>  {{  this.indexCoursCourant  }}  </h1>
+                    <!-- <h1>  {{  this.indexCoursCourant  }}  </h1> --> 
                     <h1 v-if="this.cours != null &&  this.cours.length > 0 "  >Donnez votre avis .... sur le cours de {{  this.cours[this.indexCoursCourant].professeur   }}    </h1>  
                     <!-- <label > THIS SEENEDT   {{  this.seenEdt }}  </label> --> 
                     <h1>  Note  </h1>
@@ -55,36 +55,33 @@
                     <textarea v-model="commentaireAttribueForm" name="commentaireForm" id="" cols="30" rows="10">  </textarea>
                     <h1> Email Etudiant </h1>
 
-                    <h3 v-show="this.erreurEmailFormAvisCours"> l email suivant est incorrect : {{this.emailEtudiantAttribueForm}} </h3>
+                    <h3 v-show="this.erreurEmailFormAvisCours"> l email suivant est incorrect , ou existe déjà en base de donnée  : {{this.emailEtudiantAttribueForm}} </h3>
                     <input v-model="emailEtudiantAttribueForm" type="email" name="" id="emailEtudiantForm">  
-                    <button  @click="envoyerFormAvisCours" >  Envoyer  </button>
+
+                    <div class="containerBoutonEnvoyer">  
+                        <button class="boutonEnvoyer"  @click="envoyerFormAvisCours" >  Envoyer  </button>
+                    </div>
             </div>
 
 
             <!-- Notation du prof  -->
-            <div v-show="this.seenNotationProf" id="formNotationProf" >
-                <h1> NOTEZ LE PROF </h1>
-
+            <div v-show="this.seenNotationProf"  class=""   id="formNotationProf" >
+                <h1  v-if="this.cours != null &&  this.cours.length > 0 " > NOTEZ LE PROF   {{  this.cours[this.indexCoursCourant].professeur   }}    </h1>
                     <h1>  Note  </h1>
                     <select v-model="noteAttribueFormProf" type="text" name="" id="noteForm">
                         <option  v-for="i in 6"> {{ i-1 }}  </option>
                     </select>
-
                      <h1>  Commentaire </h1>
                     <textarea v-model="commentaireAttribueFormProf" name="commentaireForm" id="" cols="30" rows="10">  </textarea>                   
-
                     <h1> Email Etudiant </h1>
-
-
-                    <h3 v-show="this.erreurEmailFormAvisProf"> l email suivant est incorrect : {{this.emailEtudiantAttribueFormProf}} </h3>
+                    <h3 v-show="this.erreurEmailFormAvisProf"> l email suivant est incorrect , ou existe déjà en base de donnée  :  : {{this.emailEtudiantAttribueFormProf}} </h3>
                     <input v-model="emailEtudiantAttribueFormProf" type="email" name="" id="emailEtudiantForm">  
 
-                    <button  @click="envoyerFormNotationProf" >  Envoyer  </button>
+                    <div class="containerBoutonEnvoyer">   
+                        <button  class="boutonEnvoyer"  @click="envoyerFormNotationProf" >  Envoyer  </button>
+                    </div>
             </div>
-
         </div>
-
-
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -204,6 +201,7 @@
 
 
                     // "localhost:8000/api/professeurs/1/avis";  
+                    var faireReapparaitreEdt = true; 
                     var response2 =  await  axios.post( "http://localhost:8000/api/professeurs/" +  this.idProfCourant + "/avis" , {
                         "note": this.noteAttribueFormProf ,
                         "commentaire":  this.commentaireAttribueFormProf  ,
@@ -211,8 +209,24 @@
                     }).catch( err => {
                         console.log(" ERREUR AU NIVEAU DE L EMAIL AVIS PROF  ");
                         console.log(err); 
-                        this.erreurEmailFormAvisProf = true; 
+                        this.erreurEmailFormAvisProf = true;  
+                        faireReapparaitreEdt = false; 
+
                     } );
+
+                    if(  response2 == null   ||  response2 == "undefined"  ){
+                        this.erreurEmailFormAvisProf = true;                        
+                        //this.seenEdt =  true ; 
+                        // this.seenForm =  false  ; 
+                        faireReapparaitreEdt = false; 
+                    }
+
+                    if(faireReapparaitreEdt ){
+                        this.seenEdt =  true ; 
+                        this.seenForm =  false  ; 
+                        this.erreurEmailFormAvisProf = true;  
+                        alert(" Votre avis sur le prof a bien été envoyé  ")
+                    }
 
                     console.log(" response 2 ===============>   "); 
                     console.log(response2); 
@@ -225,14 +239,14 @@
                     // console.log(" etat de la date apres =========>  "); 
                     // console.log(currentDate); 
                     // var sauveGardeCurrentDate =  this.currentDate; 
-                    this.seenEdt =  true ; 
-                    this.seenForm =  false  ;                   
+                    // this.seenEdt =  true ; 
+                    // this.seenForm =  false  ; 
 
                     //  this.indexCoursCourant
                     // var chemin = "http://localhost:8000/api/cours/day/" ;
                     var chemin2 = "localhost:8000/api/avis/cours/" +  this.indexCoursCourant; 
 
-                    var cheminGetEtudiant =  "localhost:8000/api/avis/cours/" +  this.indexCoursCourant;
+                    var cheminGetEtudiant =  "localhost:8000/api/avis/cours/" + this.cours[this.indexCoursCourant].id  ;
                     // var chemin =  "localhost:8000/api/avis/cours/"  +  this.indexCoursCourant; 
                     // var response = await  axios.get( "http://localhost:8000/api/avis/cours/" +  this.indexCoursCourant );
 
@@ -240,7 +254,9 @@
                     console.log( this.commentaireAttribueForm  );
                     console.log(  this.emailEtudiantAttribueForm  );
 
-                    var response2 =  await  axios.post( "http://localhost:8000/api/avis/cours/" +  this.indexCoursCourant , {
+
+                    var faireReapparaitreEdt = true; 
+                    var response2 =  await  axios.post( "http://localhost:8000/api/avis/cours/" +  this.cours[this.indexCoursCourant].id   , {
                         "note": this.noteAttribueForm ,
                         "commentaire":  this.commentaireAttribueForm  ,
                         "emailEtudiant":  this.emailEtudiantAttribueForm 
@@ -248,7 +264,24 @@
                         console.log(" ERREUR AU NIVEAU DE L EMAIL AVIS COURS");
                         console.log(err); 
                         this.erreurEmailFormAvisCours = false; 
-                    } ); ;
+                        //this.seenEdt =  true ; 
+                        // this.seenForm =  false  ; 
+                        faireReapparaitreEdt = false; 
+                    } ); 
+
+                    if(  response2 == null   ||  response2 == "undefined"  ){
+                        this.erreurEmailFormAvisCours = true; 
+                        // this.seenEdt =  true ; 
+                        // this.seenForm =  false  ; 
+                        faireReapparaitreEdt = false; 
+                    }
+
+                    if( faireReapparaitreEdt ){
+                        this.seenEdt =  true ; 
+                        this.seenForm =  false  ; 
+                        this.erreurEmailFormAvisCours = false; 
+                        alert(" Votre avis sur le cours a bien été envoyé  ")
+                    }
 
                     console.log( response2);
                     // var chemin = "http://localhost:8000/api/avis/cours/1"
@@ -341,6 +374,7 @@
 
                     var chemin = "http://localhost:8000/api/cours/day/";
                     // alert(  chemin  ); 
+                    console.log(chemin  + today ); 
                     response = await  axios.get( chemin  + today ); 
                     console.log(" Valeur de la reponse ==============>  "); 
                     console.log( response );

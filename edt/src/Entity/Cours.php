@@ -1,16 +1,21 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\CoursRepository;
+use App\Validator as Acme; 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
+// #[Acme\DateChevauche]
+
 class Cours implements \JsonSerializable
 {
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -72,6 +77,21 @@ class Cours implements \JsonSerializable
             'matiere' => $this->getMatiere(),
         ];
     }
+
+    public function fromArray(array $data): self
+    {
+        $this->salle = $data['salle'] ?? $this->salle;
+        $this->date_heure_debut  = $data['date_heure_debut'] ?? $this->date_heure_debut ;
+        $this->date_heure_fin  = $data['date_heure_fin'] ?? $this->date_heure_fin;
+        $this->type = $data['type'] ?? $this->type;
+        $this->professeur= $data['professeur'] ?? $this->professeur;
+        $this->matiere  = $data['matiere'] ?? $this->matiere;
+        $this->avisCours = $data['avisCours'] ?? $this->  avisCours  ;
+
+        // $avisCours
+        return $this;
+    }
+
 
     public function getSalle(): ?Salle
     {

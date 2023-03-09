@@ -13,6 +13,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Repository\ProfesseurRepository;
+use App\Repository\AvisRepository;
+use App\Entity\Professeur;
+use App\Entity\Avis;
+
+
 #[Route('/api/cours', name: 'api_cours_')]
 class CoursController extends AbstractController
 {
@@ -43,6 +51,40 @@ class CoursController extends AbstractController
         $cours = $query->getResult();
         
         return $this->json($cours, Response::HTTP_OK);
+    }
+
+    #[Route('/createCours', name: 'create_cours', methods: ['POST'])]
+    public function createCours(  Request $request, ?Cours $cours , ValidatorInterface $validator   ): JsonResponse {
+
+        if(is_null( $cours)){
+            return $this->json([
+                'message' => ' Le cours est vide ',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        if (is_null($data)) {
+            return $this->json([
+                'message' => 'Requête mal formattée',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $cours = (new Cours) ->fromArray($data);
+
+
+        $errors = $validator->validate($cours); 
+
+        if ($errors->count() > 0) {
+            $messages = [];
+            foreach ($errors as $error) {
+                $messages[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return $this->json($messages, Response::HTTP_BAD_REQUEST);
+        }
+
+
+        return null; 
     }
 
 }

@@ -39,6 +39,20 @@ class CoursRepository extends ServiceEntityRepository
         }
     }
 
+    public function getCoursChevauched($dateDebutInsert , $dateFinInsert ){
+
+        $query =  $this->getEntityManager()->createQuery(
+            "SELECT cours 
+            FROM App\Entity\Cours 
+            WHERE cours.date_heure_debut <  :dateDebutInsert
+            AND  cours.date_heure_fin >  :dateFinInsert  "
+        )
+          ->setParameters("dateDebutInsert" , $dateDebutInsert) 
+        ->setParameter(  "dateFinInsert"  , $dateFinInsert );
+
+         return $query->getResult(); 
+    }
+
 //    /**
 //     * @return Cours[] Returns an array of Cours objects
 //     */
