@@ -22,7 +22,8 @@ Maker: ```require --dev symfony/maker-bundle```
 
 - Récupérez l'archive de ce projet, en format .zip.
 - Extrayez-la dans un dossier de votre choix
-- Ouvrez votre terminal dans ```edt/public``` et entrez la commande: ```php -S localhost:8000```
+- Ouvrez votre terminal dans ```.../edt``` et entrez la commande: ```php bin/console doctrine:fixtures:load``` pour charger les données en base
+- entrez la commande: ```php -S localhost:8000``` pour lancer l'application
 ##
 ## Points d'entrées:
 
