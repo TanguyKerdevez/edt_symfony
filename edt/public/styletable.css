@@ -4,8 +4,37 @@ table{
 
 table , th , td {
     border: 1px solid ; 
+    padding:20px; 
 }
 
 #selectJour{
     display:flex; 
+}
+
+#formAvisCours {
+
+    display: block  ;
+    vertical-align: auto;
+    background-color: orange;
+}
+
+#subNav{
+    display:grid; 
+    width:40%; 
+    background: orange;
+    grid-template-columns: 1fr 1fr ;
+    column-gap: 50px;
+
+}
+
+.elementSubNav{
+    padding:10px; 
+    margin:10px; 
+}
+
+.elementSubNav:hover{
+    padding:10px; 
+    margin:10px; 
+    background-color: white;
+    cursor:pointer; 
 }

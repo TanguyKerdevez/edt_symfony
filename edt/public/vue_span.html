@@ -54,8 +54,6 @@
                     <h1>  Commentaire </h1>
                     <textarea v-model="commentaireAttribueForm" name="commentaireForm" id="" cols="30" rows="10">  </textarea>
                     <h1> Email Etudiant </h1>
-
-                    <h3 v-show="this.erreurEmailFormAvisCours"> l email suivant est incorrect : {{this.emailEtudiantAttribueForm}} </h3>
                     <input v-model="emailEtudiantAttribueForm" type="email" name="" id="emailEtudiantForm">  
                     <button  @click="envoyerFormAvisCours" >  Envoyer  </button>
             </div>
@@ -74,11 +72,7 @@
                     <textarea v-model="commentaireAttribueFormProf" name="commentaireForm" id="" cols="30" rows="10">  </textarea>                   
 
                     <h1> Email Etudiant </h1>
-
-
-                    <h3 v-show="this.erreurEmailFormAvisProf"> l email suivant est incorrect : {{this.emailEtudiantAttribueFormProf}} </h3>
                     <input v-model="emailEtudiantAttribueFormProf" type="email" name="" id="emailEtudiantForm">  
-
                     <button  @click="envoyerFormNotationProf" >  Envoyer  </button>
             </div>
 
@@ -186,10 +180,7 @@
                     emailEtudiantAttribueFormProf : "" , 
                     indexCoursCourant : 0, 
                     idCoursAvailable : 0 , 
-                    idProfCourant:0, 
-
-                    erreurEmailFormAvisProf:false , 
-                    erreurEmailFormAvisCours : false 
+                    idProfCourant:0
                 }
             }, 
 
@@ -197,7 +188,6 @@
 
                 async envoyerFormNotationProf(){
 
-                    this.erreurEmailFormAvisProf = false;  // si tt se passe bien c'est supposé rester faux 
                     console.log( this.noteAttribueFormProf  );
                     console.log( this.commentaireAttribueFormProf );
                     console.log( this.emailEtudiantAttribueFormProf);
@@ -208,20 +198,16 @@
                         "note": this.noteAttribueFormProf ,
                         "commentaire":  this.commentaireAttribueFormProf  ,
                         "emailEtudiant":  this.emailEtudiantAttribueFormProf 
-                    }).catch( err => {
-                        console.log(" ERREUR AU NIVEAU DE L EMAIL AVIS PROF  ");
-                        console.log(err); 
-                        this.erreurEmailFormAvisProf = true; 
-                    } );
+                    }).catch(err => {
+                        console.log(" VOICI L ERREUR DU TRY CATCH "); 
+                        console.log( err  ); 
+                    }) ;
 
                     console.log(" response 2 ===============>   "); 
                     console.log(response2); 
                 },
 
                 async envoyerFormAvisCours(){
-
-
-                    this.erreurEmailFormAvisCours = false; // si tt se passe bien c'est supposé rester faux 
                     // console.log(" etat de la date apres =========>  "); 
                     // console.log(currentDate); 
                     // var sauveGardeCurrentDate =  this.currentDate; 
@@ -244,11 +230,7 @@
                         "note": this.noteAttribueForm ,
                         "commentaire":  this.commentaireAttribueForm  ,
                         "emailEtudiant":  this.emailEtudiantAttribueForm 
-                    }).catch( err => {
-                        console.log(" ERREUR AU NIVEAU DE L EMAIL AVIS COURS");
-                        console.log(err); 
-                        this.erreurEmailFormAvisCours = false; 
-                    } ); ;
+                    });
 
                     console.log( response2);
                     // var chemin = "http://localhost:8000/api/avis/cours/1"
@@ -349,6 +331,7 @@
                     console.log(this.cours); 
                     // console.log(this.cours[0].dateHeureDebut); 
                     var stop = false; 
+                    var isFirstElement = false; 
                     // heuresJourneesMinutes 
 
                     this.coursAvailable = []; 
@@ -372,6 +355,7 @@
                                                     this.heuresJourneesMinutes[i] , 
                                                     this.heuresJourneesMinutes[i+1] )) {
 
+                                // isFirstElement =  !isFirstElement  ; 
                                 this.coursAvailable.push({ available:true , cour :  y , id :  this.cours[y].id   });   /*  this.coursAvailable =  this.cours.id   */ 
                                 console.log(this.coursAvailable); 
                                 stop = true ; 
@@ -379,6 +363,7 @@
                             }
                         }
                         if(!stop){
+
                             this.coursAvailable.push({ available:false , cour : -2 }); 
                             console.log(this.coursAvailable); 
                         }

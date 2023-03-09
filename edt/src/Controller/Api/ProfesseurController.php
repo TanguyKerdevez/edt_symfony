@@ -20,7 +20,6 @@ class ProfesseurController extends AbstractController
     public function list(ProfesseurRepository $repository): JsonResponse
     {
         $professeurs = $repository->findAll();
-
         /*$profArray = [];
         foreach ($professeurs as $professeur) {
             $profArray[] = $professeur->toArray();
