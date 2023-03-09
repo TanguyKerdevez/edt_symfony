@@ -12,12 +12,6 @@
 
 [MySql](https://dev.mysql.com/downloads/installer)
 ##
-### Dépendences:
-
-ORM: ```composer require symfony/orm-pack```
-
-Maker: ```require --dev symfony/maker-bundle```
-##
 ### Mise en place:
 
 - Récupérez l'archive de ce projet, en format .zip.
