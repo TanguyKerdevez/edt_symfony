@@ -17,7 +17,9 @@
 - Récupérez l'archive de ce projet, en format .zip.
 - Extrayez-la dans un dossier de votre choix
 - Ouvrez le fichier ```.../edt/.env``` et changez la ligne 28: ```DATABASE_URL="mysql://root:admin@127.0.0.1:3306/edt"``` pour rentrez vos identifiants MySQL
-- Ouvrez votre terminal dans ```.../edt``` et entrez la commande: ```php bin/console doctrine:fixtures:load``` pour charger les données en base
+- Ouvrez votre terminal dans ```.../edt``` et entrez les commande suivantes:
+- ````composer require symfony/runtime```
+- ```php bin/console doctrine:fixtures:load``` pour charger les données en base
 - Rendez-vous dans ```.../edt/public``` et entrez la commande: ```php -S localhost:8000``` pour lancer l'application
 ##
 ## Points d'entrées:
