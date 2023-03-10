@@ -60,6 +60,8 @@
 
 # Choses implémentées , mais qui ne fonctionnent pas : 
 
-Le validateur sur les cours qui se chevauchent. La DateChevauche (qui hérite Constraint) et la classe DateChevaucheValidator (qui hérite ConstraintValidator ) n'ont pas pu être greffées sur les entités. Ainsi , les cours peuvent se chevaucher. L'interface JS considérera toujours que le cours qui commence le plus tôt doit toujours être en premier plan (même si il rentre en conflit avec un autre cours).
+Le validateur sur les cours qui se chevauchent. La DateChevauche (qui hérite Constraint) et la classe DateChevaucheValidator (qui hérite ConstraintValidator ) n'ont pas pu être greffées sur les entités. Ainsi , les cours peuvent se chevaucher. L'interface JS considérera toujours que le cours qui commence le plus tôt doit toujours être en premier plan (même si il rentre en conflit avec un autre cours). 
+
+La raison pour laquelle cela ne marche pas , est dû au fait que l'on arrive pas à injecter le repository dans le construct de la classe Validator. Il nous est donc impossible de vérifier si un créneau est libre en base de donnée. 
 
 
