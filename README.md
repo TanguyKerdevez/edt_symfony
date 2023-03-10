@@ -56,3 +56,10 @@
 **Supprimer un avis pour un cours**: ```DELETE``` ```http://localhost:8000/api/avis/cours/{id_avis}``` 
 - Réponse: ```JSON``` ```HTTP_NO_CONTENT```
 ##
+
+
+# Choses implémentées , mais qui ne fonctionnent pas : 
+
+Le validateur sur les cours qui se chevauchent. La DateChevauche (qui hérite Constraint) et la classe DateChevaucheValidator (qui hérite ConstraintValidator ) n'ont pas pu être greffées sur les entités. Ainsi , les cours peuvent se chevaucher. L'interface JS considérera toujours que le cours qui commence le plus tôt doit toujours être en premier plan (même si il rentre en conflit avec un autre cours).
+
+
