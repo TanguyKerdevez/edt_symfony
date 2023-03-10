@@ -33,6 +33,8 @@
 ##
 **Accéder à l'interface d'administration**: ```http://localhost:8000/admin```
 ##
+**Accéder à l'application**: ```http://localhost:8000/vue_table.html```
+##
 ## Fonctionnalités ajoutées:
 
 **Avis pour les cours**: un cours peut avoir plusieurs avis, régigés par les éleves.
